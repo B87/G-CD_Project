@@ -1,61 +1,27 @@
 # G-CD_Project
 Repo of my final project in Getting and cleaning data 
 
-##Let's extract first the variables we're interested in from the features file.
+## Description of the code:
 
-setwd("C:/Users/Bernat/Desktop/MOOCS/getting and cleaning data/project_data/UCI HAR Dataset")
-      features<-read.table("features.txt")
-      features<-features[,2]
-      meanfeatures<-grep("mean",features)
-      stdfeatures<-grep("std",features)
-      feature_indexes<-sort(append(meanfeatures,stdfeatures))
-      rm(meanfeatures,stdfeatures)
+I think the code is self-explained but let's make a summary, 
+we extract all the text files we need and the variables we are interested in those related with the mean and 
+standrad deviation, then we merge them in a single data frame with the subject and the activity variable aswell
+After that we group by subject and activity and obtain the mean of all variables store it in a new variable.
 
-## Now we import test data filtering it by indexes in order to work with less data before
-## binding it into one data frame and change the names of the variables. 
+## Codebook
+In a general descrition of the variables we have:
 
-setwd("C:/Users/Bernat/Desktop/MOOCS/getting and cleaning data/project_data/UCI HAR Dataset/test")
-xtest<-read.table("X_test.txt")
-xtest<-xtest[,feature_indexes]
-colnames(xtest)<-features[feature_indexes]
-ytest<-read.table("y_test.txt")
-subject_test<-read.table("subject_test.txt")
-test<-cbind(subject_test,ytest,xtest)
-names(test)[1]<-"Subject"
-names(test)[2]<-"Activity"
-rm(ytest,xtest,subject_test)
+"Subject": Each number belong to a certain person (there are 30 persons in total)
 
-## Now we do the same as above using the train data instead
+"Activity": Each number blong to a certain activity duning the medition of the rest of varibles
+            -1. Walking
+            -2. Walking upstairs
+            -3. Walkig downstairs
+            -4. Sitting
+            -5. Standing
+            -6. Laying
 
-setwd("C:/Users/Bernat/Desktop/MOOCS/getting and cleaning data/project_data/UCI HAR Dataset/train")
-xtrain<-read.table("X_train.txt")
-xtrain<-xtrain[,feature_indexes]
-colnames(xtrain)<-features[feature_indexes]
-ytrain<-read.table("y_train.txt")
-subject_train<-read.table("subject_train.txt")
-train<-cbind(subject_train,ytrain,xtrain)
-names(train)[1]<-"Subject"
-names(train)[2]<-"Activity"
-rm(ytrain,xtrain,subject_train)
-
-## We merge now both data sets 
-data<-rbind(test,train)
-rm(test,train,features,feature_indexes)
-
-## Now we will use the dplyr package to get the final data frame. 
-
-library(dplyr)
-
-data<-tbl_df(data)
-
-x<-data %>% 
-      group_by(Subject,Activity) %>% 
-            summarise_each(funs(mean(., na.rm = TRUE)), matches("mean"))
-
-y<-data %>% 
-      group_by(Subject,Activity) %>% 
-            summarise_each(funs(mean(., na.rm = TRUE)), matches("std"))
-
-final<-cbind(x,y)
-
-rm(x,y)
+The rest of variables are means of diferent meditions for each subject and activity such 
+Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration and
+Triaxial Angular velocity from the gyroscope. 
+The results are normalized and bounded within [-1,1].
