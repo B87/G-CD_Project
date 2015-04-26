@@ -4,12 +4,12 @@ Repo of my final project in Getting and cleaning data
 ##Let's extract first the variables we're interested in from the features file.
 
 setwd("C:/Users/Bernat/Desktop/MOOCS/getting and cleaning data/project_data/UCI HAR Dataset")
-features<-read.table("features.txt")
-features<-features[,2]
-meanfeatures<-grep("mean",features)
-stdfeatures<-grep("std",features)
-feature_indexes<-sort(append(meanfeatures,stdfeatures))
-rm(meanfeatures,stdfeatures)
+      features<-read.table("features.txt")
+            features<-features[,2]
+                  meanfeatures<-grep("mean",features)
+                        stdfeatures<-grep("std",features)
+                              feature_indexes<-sort(append(meanfeatures,stdfeatures))
+                                    rm(meanfeatures,stdfeatures)
 
 ## Now we import test data filtering it by indexes in order to work with less data before
 ## binding it into one data frame and change the names of the variables. 
