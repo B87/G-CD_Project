@@ -7,6 +7,7 @@ I think the code is self-explained but let's make a summary,
 we extract all the text files we need and the variables we are interested in those related with the mean and 
 standrad deviation, then we merge them in a single data frame with the subject and the activity variable aswell
 After that we group by subject and activity and obtain the mean of all variables store it in a new variable.
+The final datat frame is a table with dimensions of 180x83.
 
 ## Codebook
 In a general descrition of the variables we have:
