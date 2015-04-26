@@ -21,7 +21,8 @@ In a general descrition of the variables we have:
             -5. Standing
             -6. Laying
 
-The rest of variables are means of diferent meditions for each subject and activity such 
+The rest of variables are means of diferent meditions related with means and standard deviations 
+for each subject and activity such 
 Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration and
 Triaxial Angular velocity from the gyroscope. 
 The results are normalized and bounded within [-1,1].
